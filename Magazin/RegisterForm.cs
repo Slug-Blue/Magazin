@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Magazin
 {
@@ -146,7 +148,7 @@ namespace Magazin
         {
             CloseButton.BackColor = Color.FromArgb(115, 177, 201);
             CloseButton.ForeColor = Color.Black;
-         
+
         }
 
         private void eyeBox_MouseMove(object sender, MouseEventArgs e)
@@ -158,7 +160,92 @@ namespace Magazin
         private void eyeBox_MouseLeave(object sender, EventArgs e)
         {
             eyeBox.BackColor = Color.FromArgb(115, 201, 139);
+            if(passField.Text != "Введите пароль")
             passField.UseSystemPasswordChar = true;
+        }
+
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+            string pattern = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_+=]).+$";
+
+            if (userNameField.Text == "Введите имя")
+            {
+                MessageBox.Show("Введите имя");
+                return;
+            }
+            if (loginField.Text == "Введите логин")
+            {
+                MessageBox.Show("Введите логин");
+                return;
+            }
+            if (loginField.TextLength <= 5)
+            {
+                MessageBox.Show("Слишком короткий логин");
+                return;
+            }
+            if (userSurnameField.Text == "Введите фамилию")
+            {
+                MessageBox.Show("Введите фамилию");
+                return;
+            }
+            if (passField.Text == "Введите пароль")
+            {
+                MessageBox.Show("Введите пароль");
+                return;
+            }
+            if (passField.TextLength <= 5)
+            {
+                MessageBox.Show("Слишком короткий пароль");
+                return;
+            }
+            if (!Regex.IsMatch(passField.Text, pattern))
+            {
+                MessageBox.Show("Пароль должен содержать заглавные буквы, строчные буквы, цифры и спецсимволы.");
+                return;
+            }
+            
+            if(UserExists())
+                return;
+
+            DB db = new DB();
+            MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`login`, `password`, `address`, `PhoneNumber`, `name`, `surname`) VALUES (@login, @password, 'NULL', NULL, @name, @surname);", db.getConnection());
+
+            command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginField.Text;
+            command.Parameters.Add("@password", MySqlDbType.VarChar).Value = passField.Text;
+            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = userNameField.Text;
+            command.Parameters.Add("@surname", MySqlDbType.VarChar).Value = userSurnameField.Text;
+
+            db.openConnection();
+
+            if (command.ExecuteNonQuery() == 1)
+                MessageBox.Show("Аккайнт был создан");
+            else
+                MessageBox.Show("Аккайнт не был создан");
+
+            db.closeConnection();
+        }
+
+        public Boolean UserExists()
+        {
+            DB db = new DB();
+
+            DataTable table = new DataTable();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @uL", db.getConnection());
+            command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = loginField.Text;
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            if (table.Rows.Count > 0)
+            {
+                MessageBox.Show("Данный логин занят");
+                return true;
+            }
+            else
+                return false;
         }
     }
 }
