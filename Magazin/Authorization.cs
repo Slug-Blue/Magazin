@@ -71,7 +71,11 @@ namespace Magazin
             adapter.Fill(table);
 
             if (table.Rows.Count > 0)
-                MessageBox.Show("Yes");
+            {
+                this.Hide();
+                MainForm mainform = new MainForm();
+                mainform.Show();
+            }
             else
                 MessageBox.Show("No");
         }

@@ -218,7 +218,12 @@ namespace Magazin
             db.openConnection();
 
             if (command.ExecuteNonQuery() == 1)
+            {
+                this.Hide();
+                MainForm mainform = new MainForm();
+                mainform.Show();
                 MessageBox.Show("Аккайнт был создан");
+            }
             else
                 MessageBox.Show("Аккайнт не был создан");
 
