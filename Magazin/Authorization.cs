@@ -23,7 +23,7 @@ namespace Magazin
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void CloseButton_MouseEnter(object sender, EventArgs e)
@@ -74,6 +74,18 @@ namespace Magazin
                 MessageBox.Show("Yes");
             else
                 MessageBox.Show("No");
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegisterLabel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Show();
         }
     }
 }

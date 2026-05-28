@@ -30,6 +30,7 @@ namespace Magazin
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            RegisterLabel = new Label();
             buttonLogin = new Button();
             passField = new TextBox();
             pictureBox2 = new PictureBox();
@@ -47,6 +48,7 @@ namespace Magazin
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(115, 201, 182);
+            panel1.Controls.Add(RegisterLabel);
             panel1.Controls.Add(buttonLogin);
             panel1.Controls.Add(passField);
             panel1.Controls.Add(pictureBox2);
@@ -60,6 +62,18 @@ namespace Magazin
             panel1.TabIndex = 0;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
+            // 
+            // RegisterLabel
+            // 
+            RegisterLabel.AutoSize = true;
+            RegisterLabel.Cursor = Cursors.Hand;
+            RegisterLabel.Font = new Font("Times New Roman", 7.875F, FontStyle.Italic, GraphicsUnit.Point, 204);
+            RegisterLabel.Location = new Point(264, 574);
+            RegisterLabel.Name = "RegisterLabel";
+            RegisterLabel.Size = new Size(170, 23);
+            RegisterLabel.TabIndex = 6;
+            RegisterLabel.Text = "Создать аккаунт";
+            RegisterLabel.Click += RegisterLabel_Click;
             // 
             // buttonLogin
             // 
@@ -151,6 +165,7 @@ namespace Magazin
             label1.TabIndex = 0;
             label1.Text = "Авторизация";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
             // 
             // Authorization
             // 
@@ -186,5 +201,6 @@ namespace Magazin
         private PictureBox pictureBox2;
         private TextBox loginField;
         private Button buttonLogin;
+        private Label RegisterLabel;
     }
 }

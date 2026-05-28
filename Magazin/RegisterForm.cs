@@ -45,7 +45,7 @@ namespace Magazin
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         Point LastPoint;
@@ -160,8 +160,8 @@ namespace Magazin
         private void eyeBox_MouseLeave(object sender, EventArgs e)
         {
             eyeBox.BackColor = Color.FromArgb(115, 201, 139);
-            if(passField.Text != "Введите пароль")
-            passField.UseSystemPasswordChar = true;
+            if (passField.Text != "Введите пароль")
+                passField.UseSystemPasswordChar = true;
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
@@ -203,8 +203,8 @@ namespace Magazin
                 MessageBox.Show("Пароль должен содержать заглавные буквы, строчные буквы, цифры и спецсимволы.");
                 return;
             }
-            
-            if(UserExists())
+
+            if (UserExists())
                 return;
 
             DB db = new DB();
@@ -223,6 +223,7 @@ namespace Magazin
                 MessageBox.Show("Аккайнт не был создан");
 
             db.closeConnection();
+
         }
 
         public Boolean UserExists()
@@ -246,6 +247,13 @@ namespace Magazin
             }
             else
                 return false;
+        }
+
+        private void AuthorizationLabel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Authorization authorizationForm = new Authorization();
+            authorizationForm.Show();
         }
     }
 }

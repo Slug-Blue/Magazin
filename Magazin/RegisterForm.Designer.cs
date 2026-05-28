@@ -40,6 +40,7 @@
             panel2 = new Panel();
             CloseButton = new Label();
             label1 = new Label();
+            AuthorizationLabel = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)eyeBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -50,6 +51,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(115, 201, 182);
+            panel1.Controls.Add(AuthorizationLabel);
             panel1.Controls.Add(eyeBox);
             panel1.Controls.Add(userSurnameField);
             panel1.Controls.Add(userNameField);
@@ -62,7 +64,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 647);
+            panel1.Size = new Size(800, 741);
             panel1.TabIndex = 1;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
@@ -109,7 +111,7 @@
             buttonRegister.FlatAppearance.MouseDownBackColor = Color.FromArgb(70, 150, 176);
             buttonRegister.FlatStyle = FlatStyle.Flat;
             buttonRegister.Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            buttonRegister.Location = new Point(260, 542);
+            buttonRegister.Location = new Point(259, 588);
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(264, 58);
             buttonRegister.TabIndex = 5;
@@ -197,11 +199,22 @@
             label1.Text = "Регистрация";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // AuthorizationLabel
+            // 
+            AuthorizationLabel.AutoSize = true;
+            AuthorizationLabel.Cursor = Cursors.Hand;
+            AuthorizationLabel.Location = new Point(310, 649);
+            AuthorizationLabel.Name = "AuthorizationLabel";
+            AuthorizationLabel.Size = new Size(177, 32);
+            AuthorizationLabel.TabIndex = 9;
+            AuthorizationLabel.Text = "Войти в аккаут";
+            AuthorizationLabel.Click += AuthorizationLabel_Click;
+            // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 647);
+            ClientSize = new Size(800, 741);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "RegisterForm";
@@ -230,5 +243,6 @@
         private TextBox userSurnameField;
         private TextBox userNameField;
         private PictureBox eyeBox;
+        private Label AuthorizationLabel;
     }
 }
