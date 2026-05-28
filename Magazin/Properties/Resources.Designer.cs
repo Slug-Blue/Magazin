@@ -93,6 +93,16 @@ namespace Magazin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap notphone {
+            get {
+                object obj = ResourceManager.GetObject("notphone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Okay {
             get {
                 object obj = ResourceManager.GetObject("Okay", resourceCulture);
@@ -106,6 +116,16 @@ namespace Magazin.Properties {
         internal static System.Drawing.Bitmap user {
             get {
                 object obj = ResourceManager.GetObject("user", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap yesphone {
+            get {
+                object obj = ResourceManager.GetObject("yesphone", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -32,6 +32,10 @@ namespace Magazin
 
             passField.Text = "Введите пароль";
             passField.ForeColor = Color.Gray;
+
+            PhoneField.Text = "Номер '79119191111'";
+            PhoneField.ForeColor = Color.Gray;
+
             if (passField.Text == "Введите пароль")
             {
                 passField.UseSystemPasswordChar = false;
@@ -168,7 +172,9 @@ namespace Magazin
         {
             if (CheckRobot.Text == "Вы не робот")
             {
+                string phoneNumber = PhoneField.Text.Trim();
                 string pattern = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_+=]).+$";
+                string PhoneNumberRegexPattern = @"^79\d{9}$";
 
                 if (userNameField.Text == "Введите имя")
                 {
@@ -205,17 +211,29 @@ namespace Magazin
                     MessageBox.Show("Пароль должен содержать заглавные буквы, строчные буквы, цифры и спецсимволы.");
                     return;
                 }
+                if (PhoneField.Text == "Номер '79119191111'")
+                {
+                     MessageBox.Show("Номер '79119191111'");
+                     return;
+                }
+                if (!Regex.IsMatch(phoneNumber, PhoneNumberRegexPattern))
+                {
+                    MessageBox.Show("Неправильный номер телефона");
+                    return;
+                }
+                
 
                 if (UserExists())
                     return;
 
                 DB db = new DB();
-                MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`login`, `password`, `address`, `PhoneNumber`, `name`, `surname`) VALUES (@login, @password, 'NULL', NULL, @name, @surname);", db.getConnection());
+                MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`login`, `password`, `address`, `PhoneNumber`, `name`, `surname`) VALUES (@login, @password, 'NULL', @phonenumber, @name, @surname);", db.getConnection());
 
                 command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginField.Text;
                 command.Parameters.Add("@password", MySqlDbType.VarChar).Value = passField.Text;
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = userNameField.Text;
                 command.Parameters.Add("@surname", MySqlDbType.VarChar).Value = userSurnameField.Text;
+                command.Parameters.Add("@phonenumber", MySqlDbType.VarChar).Value = PhoneField.Text;
 
                 db.openConnection();
 
@@ -244,8 +262,9 @@ namespace Magazin
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
 
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @uL", db.getConnection());
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @uL AND `PhoneNumber` = @phonenumber", db.getConnection());
             command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = loginField.Text;
+            command.Parameters.Add("@phonenumber", MySqlDbType.VarChar).Value = PhoneField.Text;
 
             adapter.SelectCommand = command;
             adapter.Fill(table);
@@ -281,6 +300,32 @@ namespace Magazin
         {
             expectationsField.Image = Properties.Resources.Okay;
             CheckRobot.Text = "Вы не робот";
+        }
+
+        private void PhoneField_TextChanged(object sender, EventArgs e)
+        {
+            if (PhoneField.Text != "Номер '79119191111'")
+                ExphoneField.Image = Properties.Resources.yesphone;
+        }
+
+        private void PhoneField_Enter(object sender, EventArgs e)
+        {
+            if (PhoneField.Text == "Номер '79119191111'")
+            {
+                PhoneField.UseSystemPasswordChar = true;
+                PhoneField.Text = "";
+                PhoneField.ForeColor = Color.Black;
+            }
+        }
+
+        private void PhoneField_Leave(object sender, EventArgs e)
+        {
+            if (PhoneField.Text == "")
+            {
+                PhoneField.UseSystemPasswordChar = false;
+                PhoneField.Text = "Номер '79119191111'";
+                PhoneField.ForeColor = Color.Gray;
+            }
         }
     }
 }
