@@ -166,68 +166,73 @@ namespace Magazin
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            string pattern = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_+=]).+$";
+            if (CheckRobot.Text == "Вы не робот")
+            {
+                string pattern = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_+=]).+$";
 
-            if (userNameField.Text == "Введите имя")
-            {
-                MessageBox.Show("Введите имя");
-                return;
-            }
-            if (loginField.Text == "Введите логин")
-            {
-                MessageBox.Show("Введите логин");
-                return;
-            }
-            if (loginField.TextLength <= 5)
-            {
-                MessageBox.Show("Слишком короткий логин");
-                return;
-            }
-            if (userSurnameField.Text == "Введите фамилию")
-            {
-                MessageBox.Show("Введите фамилию");
-                return;
-            }
-            if (passField.Text == "Введите пароль")
-            {
-                MessageBox.Show("Введите пароль");
-                return;
-            }
-            if (passField.TextLength <= 5)
-            {
-                MessageBox.Show("Слишком короткий пароль");
-                return;
-            }
-            if (!Regex.IsMatch(passField.Text, pattern))
-            {
-                MessageBox.Show("Пароль должен содержать заглавные буквы, строчные буквы, цифры и спецсимволы.");
-                return;
-            }
+                if (userNameField.Text == "Введите имя")
+                {
+                    MessageBox.Show("Введите имя");
+                    return;
+                }
+                if (loginField.Text == "Введите логин")
+                {
+                    MessageBox.Show("Введите логин");
+                    return;
+                }
+                if (loginField.TextLength <= 5)
+                {
+                    MessageBox.Show("Слишком короткий логин");
+                    return;
+                }
+                if (userSurnameField.Text == "Введите фамилию")
+                {
+                    MessageBox.Show("Введите фамилию");
+                    return;
+                }
+                if (passField.Text == "Введите пароль")
+                {
+                    MessageBox.Show("Введите пароль");
+                    return;
+                }
+                if (passField.TextLength <= 5)
+                {
+                    MessageBox.Show("Слишком короткий пароль");
+                    return;
+                }
+                if (!Regex.IsMatch(passField.Text, pattern))
+                {
+                    MessageBox.Show("Пароль должен содержать заглавные буквы, строчные буквы, цифры и спецсимволы.");
+                    return;
+                }
 
-            if (UserExists())
-                return;
+                if (UserExists())
+                    return;
 
-            DB db = new DB();
-            MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`login`, `password`, `address`, `PhoneNumber`, `name`, `surname`) VALUES (@login, @password, 'NULL', NULL, @name, @surname);", db.getConnection());
+                DB db = new DB();
+                MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`login`, `password`, `address`, `PhoneNumber`, `name`, `surname`) VALUES (@login, @password, 'NULL', NULL, @name, @surname);", db.getConnection());
 
-            command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginField.Text;
-            command.Parameters.Add("@password", MySqlDbType.VarChar).Value = passField.Text;
-            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = userNameField.Text;
-            command.Parameters.Add("@surname", MySqlDbType.VarChar).Value = userSurnameField.Text;
+                command.Parameters.Add("@login", MySqlDbType.VarChar).Value = loginField.Text;
+                command.Parameters.Add("@password", MySqlDbType.VarChar).Value = passField.Text;
+                command.Parameters.Add("@name", MySqlDbType.VarChar).Value = userNameField.Text;
+                command.Parameters.Add("@surname", MySqlDbType.VarChar).Value = userSurnameField.Text;
 
-            db.openConnection();
+                db.openConnection();
 
-            if (command.ExecuteNonQuery() == 1)
-            {
-                this.Hide();
-                MainForm mainform = new MainForm();
-                mainform.Show();
-                MessageBox.Show("Аккайнт был создан");
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    this.Hide();
+                    MainForm mainform = new MainForm();
+                    mainform.Show();
+                    MessageBox.Show("Аккайнт был создан");
+                }
+                else
+                    MessageBox.Show("Аккайнт не был создан");
+
+                db.closeConnection();
             }
             else
-                MessageBox.Show("Аккайнт не был создан");
-
-            db.closeConnection();
+                MessageBox.Show("Нажмите на кнопку для потверждение того, что вы не робот");
 
         }
 
@@ -259,6 +264,23 @@ namespace Magazin
             this.Hide();
             Authorization authorizationForm = new Authorization();
             authorizationForm.Show();
+        }
+
+        private void CheckRobot_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (CheckRobot.Text != "Вы не робот")
+                expectationsField.BackColor = Color.White;
+        }
+
+        private void CheckRobot_MouseLeave(object sender, EventArgs e)
+        {
+            expectationsField.BackColor = Color.FromArgb(115, 201, 182);
+        }
+
+        private void expectationsField_Click(object sender, EventArgs e)
+        {
+            expectationsField.Image = Properties.Resources.Okay;
+            CheckRobot.Text = "Вы не робот";
         }
     }
 }

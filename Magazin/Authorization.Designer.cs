@@ -30,6 +30,8 @@ namespace Magazin
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            CheckRobot = new Label();
+            expectationsField = new PictureBox();
             RegisterLabel = new Label();
             buttonLogin = new Button();
             passField = new TextBox();
@@ -40,6 +42,7 @@ namespace Magazin
             CloseButton = new Label();
             label1 = new Label();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)expectationsField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -48,6 +51,8 @@ namespace Magazin
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(115, 201, 182);
+            panel1.Controls.Add(CheckRobot);
+            panel1.Controls.Add(expectationsField);
             panel1.Controls.Add(RegisterLabel);
             panel1.Controls.Add(buttonLogin);
             panel1.Controls.Add(passField);
@@ -62,6 +67,31 @@ namespace Magazin
             panel1.TabIndex = 0;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
+            // 
+            // CheckRobot
+            // 
+            CheckRobot.AutoSize = true;
+            CheckRobot.Cursor = Cursors.Help;
+            CheckRobot.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            CheckRobot.Location = new Point(158, 425);
+            CheckRobot.Name = "CheckRobot";
+            CheckRobot.Size = new Size(197, 36);
+            CheckRobot.TabIndex = 8;
+            CheckRobot.Text = "Вы не робот?";
+            CheckRobot.MouseLeave += CheckRobot_MouseLeave;
+            CheckRobot.MouseMove += CheckRobot_MouseMove;
+            // 
+            // expectationsField
+            // 
+            expectationsField.Cursor = Cursors.Hand;
+            expectationsField.Image = Properties.Resources.expectations;
+            expectationsField.Location = new Point(30, 400);
+            expectationsField.Name = "expectationsField";
+            expectationsField.Size = new Size(78, 78);
+            expectationsField.SizeMode = PictureBoxSizeMode.StretchImage;
+            expectationsField.TabIndex = 7;
+            expectationsField.TabStop = false;
+            expectationsField.Click += expectationsField_Click;
             // 
             // RegisterLabel
             // 
@@ -178,6 +208,7 @@ namespace Magazin
             Text = "Authorization";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)expectationsField).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
@@ -202,5 +233,7 @@ namespace Magazin
         private TextBox loginField;
         private Button buttonLogin;
         private Label RegisterLabel;
+        private PictureBox expectationsField;
+        private Label CheckRobot;
     }
 }

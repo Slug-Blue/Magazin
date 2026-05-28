@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            CheckRobot = new Label();
+            expectationsField = new PictureBox();
+            AuthorizationLabel = new Label();
             eyeBox = new PictureBox();
             userSurnameField = new TextBox();
             userNameField = new TextBox();
@@ -40,8 +43,8 @@
             panel2 = new Panel();
             CloseButton = new Label();
             label1 = new Label();
-            AuthorizationLabel = new Label();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)expectationsField).BeginInit();
             ((System.ComponentModel.ISupportInitialize)eyeBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -51,6 +54,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(115, 201, 182);
+            panel1.Controls.Add(CheckRobot);
+            panel1.Controls.Add(expectationsField);
             panel1.Controls.Add(AuthorizationLabel);
             panel1.Controls.Add(eyeBox);
             panel1.Controls.Add(userSurnameField);
@@ -64,10 +69,46 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 741);
+            panel1.Size = new Size(800, 770);
             panel1.TabIndex = 1;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
+            // 
+            // CheckRobot
+            // 
+            CheckRobot.AutoSize = true;
+            CheckRobot.Cursor = Cursors.Help;
+            CheckRobot.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            CheckRobot.Location = new Point(149, 570);
+            CheckRobot.Name = "CheckRobot";
+            CheckRobot.Size = new Size(197, 36);
+            CheckRobot.TabIndex = 11;
+            CheckRobot.Text = "Вы не робот?";
+            CheckRobot.MouseLeave += CheckRobot_MouseLeave;
+            CheckRobot.MouseMove += CheckRobot_MouseMove;
+            // 
+            // expectationsField
+            // 
+            expectationsField.Cursor = Cursors.Hand;
+            expectationsField.Image = Properties.Resources.expectations;
+            expectationsField.Location = new Point(21, 545);
+            expectationsField.Name = "expectationsField";
+            expectationsField.Size = new Size(78, 78);
+            expectationsField.SizeMode = PictureBoxSizeMode.StretchImage;
+            expectationsField.TabIndex = 10;
+            expectationsField.TabStop = false;
+            expectationsField.Click += expectationsField_Click;
+            // 
+            // AuthorizationLabel
+            // 
+            AuthorizationLabel.AutoSize = true;
+            AuthorizationLabel.Cursor = Cursors.Hand;
+            AuthorizationLabel.Location = new Point(308, 700);
+            AuthorizationLabel.Name = "AuthorizationLabel";
+            AuthorizationLabel.Size = new Size(177, 32);
+            AuthorizationLabel.TabIndex = 9;
+            AuthorizationLabel.Text = "Войти в аккаут";
+            AuthorizationLabel.Click += AuthorizationLabel_Click;
             // 
             // eyeBox
             // 
@@ -111,7 +152,7 @@
             buttonRegister.FlatAppearance.MouseDownBackColor = Color.FromArgb(70, 150, 176);
             buttonRegister.FlatStyle = FlatStyle.Flat;
             buttonRegister.Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            buttonRegister.Location = new Point(259, 588);
+            buttonRegister.Location = new Point(257, 639);
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(264, 58);
             buttonRegister.TabIndex = 5;
@@ -199,28 +240,18 @@
             label1.Text = "Регистрация";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // AuthorizationLabel
-            // 
-            AuthorizationLabel.AutoSize = true;
-            AuthorizationLabel.Cursor = Cursors.Hand;
-            AuthorizationLabel.Location = new Point(310, 649);
-            AuthorizationLabel.Name = "AuthorizationLabel";
-            AuthorizationLabel.Size = new Size(177, 32);
-            AuthorizationLabel.TabIndex = 9;
-            AuthorizationLabel.Text = "Войти в аккаут";
-            AuthorizationLabel.Click += AuthorizationLabel_Click;
-            // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 741);
+            ClientSize = new Size(800, 770);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "RegisterForm";
             Text = "RegisterForm";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)expectationsField).EndInit();
             ((System.ComponentModel.ISupportInitialize)eyeBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -244,5 +275,7 @@
         private TextBox userNameField;
         private PictureBox eyeBox;
         private Label AuthorizationLabel;
+        private Label CheckRobot;
+        private PictureBox expectationsField;
     }
 }

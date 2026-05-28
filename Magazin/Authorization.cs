@@ -54,30 +54,35 @@ namespace Magazin
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            String loginUser = loginField.Text;
-            String passUser = passField.Text;
-
-            DB db = new DB();
-
-            DataTable table = new DataTable();
-
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @uL AND `password` = @uP", db.getConnection());
-            command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = loginUser;
-            command.Parameters.Add("@uP", MySqlDbType.VarChar).Value = passUser;
-
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            if (table.Rows.Count > 0)
+            if (CheckRobot.Text == "Вы не робот")
             {
-                this.Hide();
-                MainForm mainform = new MainForm();
-                mainform.Show();
+                String loginUser = loginField.Text;
+                String passUser = passField.Text;
+
+                DB db = new DB();
+
+                DataTable table = new DataTable();
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+                MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @uL AND `password` = @uP", db.getConnection());
+                command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = loginUser;
+                command.Parameters.Add("@uP", MySqlDbType.VarChar).Value = passUser;
+
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+
+                if (table.Rows.Count > 0)
+                {
+                    this.Hide();
+                    MainForm mainform = new MainForm();
+                    mainform.Show();
+                }
+                else
+                    MessageBox.Show("No");
             }
-            else
-                MessageBox.Show("No");
+            else 
+                MessageBox.Show("Нажмите на кнопку для потверждение того, что вы не робот");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -90,6 +95,23 @@ namespace Magazin
             this.Hide();
             RegisterForm registerForm = new RegisterForm();
             registerForm.Show();
+        }
+
+        private void CheckRobot_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(CheckRobot.Text != "Вы не робот")
+            expectationsField.BackColor = Color.White;
+        }
+
+        private void CheckRobot_MouseLeave(object sender, EventArgs e)
+        {
+            expectationsField.BackColor = Color.FromArgb(115, 201, 182);
+        }
+
+        private void expectationsField_Click(object sender, EventArgs e)
+        {
+            expectationsField.Image = Properties.Resources.Okay;
+            CheckRobot.Text = "Вы не робот";
         }
     }
 }
