@@ -33,5 +33,13 @@ namespace Magazin
             CloseButton.BackColor = Color.FromArgb(115, 177, 201);
             CloseButton.ForeColor = Color.Black;
         }
+
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Show();
+        }
+
     }
 }

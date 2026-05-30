@@ -21,6 +21,9 @@ namespace Magazin
             this.passField.AutoSize = false;
             this.passField.Size = new Size(this.passField.Size.Width, 74);
 
+            this.passField2.AutoSize = false;
+            this.passField2.Size = new Size(this.passField2.Size.Width, 74);
+
             userNameField.Text = "Введите имя";
             userNameField.ForeColor = Color.Gray;
 
@@ -33,12 +36,20 @@ namespace Magazin
             passField.Text = "Введите пароль";
             passField.ForeColor = Color.Gray;
 
+            passField2.Text = "Повторите пароль";
+            passField2.ForeColor = Color.Gray;
+
             PhoneField.Text = "Номер '79119191111'";
             PhoneField.ForeColor = Color.Gray;
 
             if (passField.Text == "Введите пароль")
             {
                 passField.UseSystemPasswordChar = false;
+            }
+
+            if (passField2.Text == "Повторите пароль")
+            {
+                passField2.UseSystemPasswordChar = false;
             }
         }
 
@@ -128,7 +139,7 @@ namespace Magazin
                 passField.UseSystemPasswordChar = true;
                 passField.Text = "";
                 passField.ForeColor = Color.Black;
-
+                //fffffffff
             }
         }
 
@@ -159,6 +170,7 @@ namespace Magazin
         {
             eyeBox.BackColor = Color.FromArgb(95, 156, 142);
             passField.UseSystemPasswordChar = false;
+            passField2.UseSystemPasswordChar = false;
         }
 
         private void eyeBox_MouseLeave(object sender, EventArgs e)
@@ -166,6 +178,8 @@ namespace Magazin
             eyeBox.BackColor = Color.FromArgb(115, 201, 139);
             if (passField.Text != "Введите пароль")
                 passField.UseSystemPasswordChar = true;
+            if (passField2.Text != "Повторите пароль")
+                passField2.UseSystemPasswordChar = true;
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
@@ -211,17 +225,22 @@ namespace Magazin
                     MessageBox.Show("Пароль должен содержать заглавные буквы, строчные буквы, цифры и спецсимволы.");
                     return;
                 }
-                if (PhoneField.Text == "Номер '79119191111'")
+                if (passField.Text != passField2.Text)
                 {
-                     MessageBox.Show("Номер '79119191111'");
-                     return;
+                    MessageBox.Show("Неверное повторен пароль");
+                    return;
+                }
+                                if (PhoneField.Text == "Номер '79119191111'")
+                {
+                    MessageBox.Show("Номер '79119191111'");
+                    return;
                 }
                 if (!Regex.IsMatch(phoneNumber, PhoneNumberRegexPattern))
                 {
                     MessageBox.Show("Неправильный номер телефона");
                     return;
                 }
-                
+
 
                 if (UserExists())
                     return;
@@ -325,6 +344,32 @@ namespace Magazin
                 PhoneField.UseSystemPasswordChar = false;
                 PhoneField.Text = "Номер '79119191111'";
                 PhoneField.ForeColor = Color.Gray;
+            }
+        }
+
+        private void passField_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passField2_MouseEnter(object sender, EventArgs e)
+        {
+            if (passField2.Text == "Повторите пароль")
+            {
+                passField2.UseSystemPasswordChar = true;
+                passField2.Text = "";
+                passField2.ForeColor = Color.Black;
+
+            }
+        }
+
+        private void passField2_MouseLeave(object sender, EventArgs e)
+        {
+            if (passField2.Text == "")
+            {
+                passField2.UseSystemPasswordChar = false;
+                passField2.Text = "Повторите пароль";
+                passField2.ForeColor = Color.Gray;
             }
         }
     }

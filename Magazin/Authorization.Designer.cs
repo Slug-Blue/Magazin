@@ -30,8 +30,10 @@ namespace Magazin
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            CheckRobot = new Label();
-            expectationsField = new PictureBox();
+            capcha = new TextBox();
+            pictureBox5 = new PictureBox();
+            pictureCapcha = new PictureBox();
+            label3 = new Label();
             RegisterLabel = new Label();
             buttonLogin = new Button();
             passField = new TextBox();
@@ -42,7 +44,8 @@ namespace Magazin
             CloseButton = new Label();
             label1 = new Label();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)expectationsField).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureCapcha).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -51,8 +54,10 @@ namespace Magazin
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(115, 201, 182);
-            panel1.Controls.Add(CheckRobot);
-            panel1.Controls.Add(expectationsField);
+            panel1.Controls.Add(capcha);
+            panel1.Controls.Add(pictureBox5);
+            panel1.Controls.Add(pictureCapcha);
+            panel1.Controls.Add(label3);
             panel1.Controls.Add(RegisterLabel);
             panel1.Controls.Add(buttonLogin);
             panel1.Controls.Add(passField);
@@ -63,42 +68,58 @@ namespace Magazin
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(679, 638);
+            panel1.Size = new Size(679, 688);
             panel1.TabIndex = 0;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
             // 
-            // CheckRobot
+            // capcha
             // 
-            CheckRobot.AutoSize = true;
-            CheckRobot.Cursor = Cursors.Help;
-            CheckRobot.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            CheckRobot.Location = new Point(158, 425);
-            CheckRobot.Name = "CheckRobot";
-            CheckRobot.Size = new Size(197, 36);
-            CheckRobot.TabIndex = 8;
-            CheckRobot.Text = "Вы не робот?";
-            CheckRobot.MouseLeave += CheckRobot_MouseLeave;
-            CheckRobot.MouseMove += CheckRobot_MouseMove;
+            capcha.Font = new Font("Arial Narrow", 16.125F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            capcha.Location = new Point(197, 487);
+            capcha.Multiline = true;
+            capcha.Name = "capcha";
+            capcha.Size = new Size(294, 64);
+            capcha.TabIndex = 10;
+            capcha.Enter += capcha_Enter;
+            capcha.Leave += capcha_Leave;
             // 
-            // expectationsField
+            // pictureBox5
             // 
-            expectationsField.Cursor = Cursors.Hand;
-            expectationsField.Image = Properties.Resources.expectations;
-            expectationsField.Location = new Point(30, 400);
-            expectationsField.Name = "expectationsField";
-            expectationsField.Size = new Size(78, 78);
-            expectationsField.SizeMode = PictureBoxSizeMode.StretchImage;
-            expectationsField.TabIndex = 7;
-            expectationsField.TabStop = false;
-            expectationsField.Click += expectationsField_Click;
+            pictureBox5.Cursor = Cursors.Hand;
+            pictureBox5.Image = Properties.Resources.reload;
+            pictureBox5.Location = new Point(423, 412);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(68, 69);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 9;
+            pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click;
+            // 
+            // pictureCapcha
+            // 
+            pictureCapcha.BackColor = Color.White;
+            pictureCapcha.Location = new Point(197, 412);
+            pictureCapcha.Name = "pictureCapcha";
+            pictureCapcha.Size = new Size(200, 69);
+            pictureCapcha.TabIndex = 8;
+            pictureCapcha.TabStop = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(197, 377);
+            label3.Name = "label3";
+            label3.Size = new Size(294, 32);
+            label3.TabIndex = 7;
+            label3.Text = "Введите текст с картинки";
             // 
             // RegisterLabel
             // 
             RegisterLabel.AutoSize = true;
             RegisterLabel.Cursor = Cursors.Hand;
             RegisterLabel.Font = new Font("Times New Roman", 7.875F, FontStyle.Italic, GraphicsUnit.Point, 204);
-            RegisterLabel.Location = new Point(264, 574);
+            RegisterLabel.Location = new Point(267, 639);
             RegisterLabel.Name = "RegisterLabel";
             RegisterLabel.Size = new Size(170, 23);
             RegisterLabel.TabIndex = 6;
@@ -112,7 +133,7 @@ namespace Magazin
             buttonLogin.FlatAppearance.MouseDownBackColor = Color.FromArgb(70, 150, 176);
             buttonLogin.FlatStyle = FlatStyle.Flat;
             buttonLogin.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            buttonLogin.Location = new Point(274, 525);
+            buttonLogin.Location = new Point(277, 574);
             buttonLogin.Name = "buttonLogin";
             buttonLogin.Size = new Size(150, 46);
             buttonLogin.TabIndex = 5;
@@ -201,14 +222,15 @@ namespace Magazin
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(679, 638);
+            ClientSize = new Size(679, 688);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Authorization";
             Text = "Authorization";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)expectationsField).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureCapcha).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
@@ -233,7 +255,9 @@ namespace Magazin
         private TextBox loginField;
         private Button buttonLogin;
         private Label RegisterLabel;
-        private PictureBox expectationsField;
-        private Label CheckRobot;
+        private PictureBox pictureCapcha;
+        private Label label3;
+        private TextBox capcha;
+        private PictureBox pictureBox5;
     }
 }

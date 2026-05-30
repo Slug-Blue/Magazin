@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            passField2 = new TextBox();
             ExphoneField = new PictureBox();
             PhoneField = new TextBox();
             CheckRobot = new Label();
@@ -57,6 +58,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(115, 201, 182);
+            panel1.Controls.Add(passField2);
             panel1.Controls.Add(ExphoneField);
             panel1.Controls.Add(PhoneField);
             panel1.Controls.Add(CheckRobot);
@@ -74,15 +76,26 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 849);
+            panel1.Size = new Size(800, 964);
             panel1.TabIndex = 1;
             panel1.MouseDown += panel1_MouseDown;
             panel1.MouseMove += panel1_MouseMove;
             // 
+            // passField2
+            // 
+            passField2.Font = new Font("Arial Narrow", 16.125F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            passField2.Location = new Point(172, 539);
+            passField2.Name = "passField2";
+            passField2.Size = new Size(418, 57);
+            passField2.TabIndex = 14;
+            passField2.UseSystemPasswordChar = true;
+            passField2.MouseEnter += passField2_MouseEnter;
+            passField2.MouseLeave += passField2_MouseLeave;
+            // 
             // ExphoneField
             // 
             ExphoneField.Image = Properties.Resources.notphone;
-            ExphoneField.Location = new Point(24, 545);
+            ExphoneField.Location = new Point(24, 659);
             ExphoneField.Name = "ExphoneField";
             ExphoneField.Size = new Size(79, 79);
             ExphoneField.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -92,7 +105,7 @@
             // PhoneField
             // 
             PhoneField.Font = new Font("Arial Narrow", 16.125F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            PhoneField.Location = new Point(172, 545);
+            PhoneField.Location = new Point(172, 659);
             PhoneField.Multiline = true;
             PhoneField.Name = "PhoneField";
             PhoneField.Size = new Size(418, 74);
@@ -106,7 +119,7 @@
             CheckRobot.AutoSize = true;
             CheckRobot.Cursor = Cursors.Help;
             CheckRobot.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            CheckRobot.Location = new Point(152, 665);
+            CheckRobot.Location = new Point(152, 779);
             CheckRobot.Name = "CheckRobot";
             CheckRobot.Size = new Size(197, 36);
             CheckRobot.TabIndex = 11;
@@ -118,7 +131,7 @@
             // 
             expectationsField.Cursor = Cursors.Hand;
             expectationsField.Image = Properties.Resources.expectations;
-            expectationsField.Location = new Point(24, 640);
+            expectationsField.Location = new Point(24, 754);
             expectationsField.Name = "expectationsField";
             expectationsField.Size = new Size(78, 78);
             expectationsField.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -130,7 +143,7 @@
             // 
             AuthorizationLabel.AutoSize = true;
             AuthorizationLabel.Cursor = Cursors.Hand;
-            AuthorizationLabel.Location = new Point(311, 795);
+            AuthorizationLabel.Location = new Point(311, 909);
             AuthorizationLabel.Name = "AuthorizationLabel";
             AuthorizationLabel.Size = new Size(177, 32);
             AuthorizationLabel.TabIndex = 9;
@@ -141,7 +154,7 @@
             // 
             eyeBox.BackColor = Color.FromArgb(115, 201, 139);
             eyeBox.Image = Properties.Resources.eye;
-            eyeBox.Location = new Point(632, 459);
+            eyeBox.Location = new Point(624, 499);
             eyeBox.Name = "eyeBox";
             eyeBox.Size = new Size(40, 40);
             eyeBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -179,7 +192,7 @@
             buttonRegister.FlatAppearance.MouseDownBackColor = Color.FromArgb(70, 150, 176);
             buttonRegister.FlatStyle = FlatStyle.Flat;
             buttonRegister.Font = new Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            buttonRegister.Location = new Point(260, 734);
+            buttonRegister.Location = new Point(260, 848);
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(264, 58);
             buttonRegister.TabIndex = 5;
@@ -195,13 +208,14 @@
             passField.Size = new Size(418, 57);
             passField.TabIndex = 4;
             passField.UseSystemPasswordChar = true;
+            passField.TextChanged += passField_TextChanged;
             passField.Enter += passField_Enter;
             passField.Leave += passField_Leave;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources._lock;
-            pictureBox2.Location = new Point(21, 442);
+            pictureBox2.Location = new Point(24, 487);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(79, 79);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -271,7 +285,7 @@
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 849);
+            ClientSize = new Size(800, 964);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "RegisterForm";
@@ -307,5 +321,6 @@
         private PictureBox expectationsField;
         private PictureBox ExphoneField;
         private TextBox PhoneField;
+        private TextBox passField2;
     }
 }
