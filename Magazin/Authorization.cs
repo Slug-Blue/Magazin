@@ -14,7 +14,7 @@ namespace Magazin
 {
     public partial class Authorization : Form
     {
-        // Настройки ограничений и капчи
+
         private const int MaxCaptchaAttempts = 2;
         private const int LockoutSeconds = 25;
 
@@ -23,28 +23,23 @@ namespace Magazin
         private DateTime _lockoutUntil = DateTime.MinValue;
         private readonly System.Windows.Forms.Timer _lockoutTimer;
 
-        // Единый исправленный конструктор класса Authorization
         public Authorization()
+
         {
             InitializeComponent();
 
-            // Настройка размеров поля пароля
             this.passField.AutoSize = false;
             this.passField.Size = new Size(this.passField.Size.Width, 74);
 
-            // Настройка таймера блокировки
             _lockoutTimer = new System.Windows.Forms.Timer { Interval = 1000 };
             _lockoutTimer.Tick += LockoutTimer_Tick;
 
-            // Начальное состояние поля капчи
             capcha.Text = "Введите капчу";
             capcha.ForeColor = Color.Gray;
 
-            // Генерация первой капчи при запуске формы
             RefreshCaptcha();
         }
 
-        // Метод генерации и обновления картинки капчи
         private void RefreshCaptcha()
         {
             _captchaCode = CaptchaGenerator.GenerateCode();
@@ -62,7 +57,6 @@ namespace Magazin
             capcha.ForeColor = Color.Black;
         }
 
-        // Кнопка закрытия приложения
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -80,7 +74,6 @@ namespace Magazin
             CloseButton.ForeColor = Color.Black;
         }
 
-        // Перетаскивание формы мышкой за панель
         Point LastPoint;
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -96,25 +89,27 @@ namespace Magazin
             LastPoint = new Point(e.X, e.Y);
         }
 
-        // Логика авторизации пользователя
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            // 1. Проверяем временную блокировку
             if (IsLockedOut())
             {
                 MessageBox.Show($"Вход заблокирован. Повторите через {GetLockoutRemainingSeconds()} сек.");
                 return;
             }
 
-            // 2. Проверяем, заполнено ли поле капчи (ИСПРАВЛЕНО: IsNullOrEmpty)
             if (capcha.Text == "Введите капчу" || string.IsNullOrEmpty(capcha.Text))
             {
                 MessageBox.Show("Введите текст с картинки");
                 return;
             }
 
-            // 3. Проверяем правильность ввода капчи (регистронезависимо)
-            if (!string.Equals(capcha.Text.Trim(), _captchaCode, StringComparison.OrdinalIgnoreCase))
+            string entered = capcha.Text.Replace(" ", "").Trim().ToUpper();
+            string actual = _captchaCode.Replace(" ", "").Trim().ToUpper();
+
+            entered = entered.Replace("Н", "H").Replace("А", "A").Replace("В", "B").Replace("Е", "E").Replace("К", "K").Replace("М", "M").Replace("О", "O").Replace("Р", "P").Replace("С", "C").Replace("Т", "T").Replace("Х", "X");
+            actual = actual.Replace("Н", "H").Replace("А", "A").Replace("В", "B").Replace("Е", "E").Replace("К", "K").Replace("М", "M").Replace("О", "O").Replace("Р", "P").Replace("С", "C").Replace("Т", "T").Replace("Х", "X");
+
+            if (!string.Equals(entered, actual))
             {
                 _failedCaptchaAttempts++;
                 MessageBox.Show("Неверная капча, повторите попытку");
@@ -125,10 +120,8 @@ namespace Magazin
                 return;
             }
 
-            // Если капча пройдена, сбрасываем счетчик ошибок капчи
             _failedCaptchaAttempts = 0;
 
-            // 4. Проверка логина и пароля в базе данных
             String loginUser = loginField.Text;
             String passUser = passField.Text;
 
@@ -152,7 +145,7 @@ namespace Magazin
             else
             {
                 MessageBox.Show("Неверный логин или пароль");
-                RefreshCaptcha(); // Меняем капчу при неудачной попытке входа
+                RefreshCaptcha();
             }
         }
 
@@ -160,7 +153,6 @@ namespace Magazin
         {
         }
 
-        // Переход на форму регистрации
         private void RegisterLabel_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -168,7 +160,6 @@ namespace Magazin
             registerForm.Show();
         }
 
-        // Эффект подсказки (Placeholder) для текстового поля капчи
         private void capcha_Enter(object sender, EventArgs e)
         {
             if (capcha.Text == "Введите капчу")
@@ -187,7 +178,6 @@ namespace Magazin
             }
         }
 
-        // Обновление капчи вручную по клику на кнопку/картинку обновления
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             if (IsLockedOut())
@@ -197,8 +187,6 @@ namespace Magazin
             }
             RefreshCaptcha();
         }
-
-        // --- ДОБАВЛЕННЫЕ МЕТОДЫ ДЛЯ СИСТЕМЫ БЛОКИРОВКИ ВХОДА ---
 
         private void StartLockout()
         {
@@ -244,7 +232,6 @@ namespace Magazin
             pictureBox5.Enabled = enabled;
         }
 
-        // Освобождение системных ресурсов при уничтожении формы
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             _lockoutTimer?.Stop();

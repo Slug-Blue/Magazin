@@ -102,6 +102,7 @@ namespace Magazin
             pictureCapcha.Location = new Point(197, 412);
             pictureCapcha.Name = "pictureCapcha";
             pictureCapcha.Size = new Size(200, 69);
+            pictureCapcha.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureCapcha.TabIndex = 8;
             pictureCapcha.TabStop = false;
             // 

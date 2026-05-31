@@ -34,7 +34,9 @@ namespace Equipment_rental
                     random.Next(height));
             }
 
-            using var font = new Font("Arial", height * 0.55f, FontStyle.Bold);
+
+            float fontSize = Math.Min(height * 0.5f, (float)width / code.Length * 0.35f);
+            using var font = new Font("Arial", fontSize, FontStyle.Bold);
             using var brush = new SolidBrush(Color.FromArgb(30, 30, 30));
             var format = new StringFormat
             {
